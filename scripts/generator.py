@@ -73,13 +73,14 @@ def generate_review(product_data, template_type="review"):
     Template to follow:
     {template if template else "Use a standard review structure."}
     
-    Requirements:
+    requirements:
     1. Output in valid JSON format with the following keys:
        - title: A catchy, SEO-friendly title.
        - content: The full content in Markdown format, following the template structure.
        - rating: A numeric rating from 1 to 5 (float).
        - seo_title: A meta SEO title (max 60 chars).
        - seo_description: A meta SEO description (max 160 chars).
+       - json_ld: A JSON-LD string representing the product review schema.
     2. The content should be at least 600 words.
     3. Use a professional yet conversational tone.
     """
@@ -92,7 +93,8 @@ def generate_review(product_data, template_type="review"):
             "content": f"# Review of {info['name']}\n\nThis is a mock review for {info['name']} in the {info['category']} category.",
             "rating": 4.5,
             "seo_title": f"{info['name']} Review - Is it worth it?",
-            "seo_description": f"Read our deep dive into {info['name']}. We cover features, pros, and cons of this {info['category']} tool."
+            "seo_description": f"Read our deep dive into {info['name']}. We cover features, pros, and cons of this {info['category']} tool.",
+            "json_ld": "{\"@context\": \"https://schema.org/\", \"@type\": \"Product\"}"
         }
     
     try:
@@ -120,11 +122,12 @@ def save_review(product_id, review_data):
     content = review_data['content'].replace("'", "''")
     seo_title = review_data['seo_title'].replace("'", "''")
     seo_description = review_data['seo_description'].replace("'", "''")
+    json_ld = review_data.get('json_ld', '').replace("'", "''")
     rating = review_data['rating']
     
     sql = f"""
-    INSERT INTO reviews (product_id, title, content, rating, status, slug, seo_title, seo_description)
-    VALUES ({product_id}, '{title}', '{content}', {rating}, 'published', '{slug}', '{seo_title}', '{seo_description}')
+    INSERT INTO reviews (product_id, title, content, rating, status, slug, seo_title, seo_description, json_ld)
+    VALUES ({product_id}, '{title}', '{content}', {rating}, 'published', '{slug}', '{seo_title}', '{seo_description}', '{json_ld}')
     """
     return run_db_query(sql)
 
@@ -156,6 +159,7 @@ def generate_comparison(product_data1, product_data2, template_type="comparison"
        - rating: A combined or representative rating (float).
        - seo_title: A meta SEO title.
        - seo_description: A meta SEO description.
+       - json_ld: A JSON-LD string representing the comparison/product schema.
     2. The content should be at least 800 words.
     """
     
@@ -166,7 +170,8 @@ def generate_comparison(product_data1, product_data2, template_type="comparison"
             "content": f"# {info1['name']} vs {info2['name']}\n\nComparing {info1['name']} and {info2['name']} in the {info1['category']} space.",
             "rating": 4.0,
             "seo_title": f"{info1['name']} vs {info2['name']} Comparison",
-            "seo_description": f"Deciding between {info1['name']} and {info2['name']}? Read our full comparison."
+            "seo_description": f"Deciding between {info1['name']} and {info2['name']}? Read our full comparison.",
+            "json_ld": "{\"@context\": \"https://schema.org/\", \"@type\": \"Product\"}"
         }
 
     try:

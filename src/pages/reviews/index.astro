@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const reviews = Object.values(import.meta.glob('./*.md', { eager: true }));
+---
+
+<Layout title="All Reviews">
+	<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+		<h1 class="text-4xl font-extrabold text-slate-900 mb-12">Product Reviews</h1>
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			{reviews.map((review: any) => (
+				<a href={review.url} class="block p-8 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all">
+					<div class="flex justify-between items-start mb-4">
+						<span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Review</span>
+						<span class="text-sm font-medium text-slate-500">Rating: {review.frontmatter.rating}/5</span>
+					</div>
+					<h2 class="text-xl font-bold text-slate-900 mb-4">{review.frontmatter.title}</h2>
+					<p class="text-slate-600 text-sm line-clamp-3">
+						{review.frontmatter.description}
+					</p>
+					<div class="mt-6 text-blue-600 font-semibold text-sm flex items-center">
+						Read Full Review
+						<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+					</div>
+				</a>
+			))}
+		</div>
+	</section>
+</Layout>

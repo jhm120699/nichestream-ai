@@ -117,7 +117,7 @@ def save_review(product_id, review_data):
     name = run_db_query(f"SELECT name FROM products WHERE id = {product_id}")[0]['name']
     slug = slugify(name)
     
-    # Escape single quotes for SQL
+    # Save to database
     title = review_data['title'].replace("'", "''")
     content = review_data['content'].replace("'", "''")
     seo_title = review_data['seo_title'].replace("'", "''")
@@ -129,7 +129,30 @@ def save_review(product_id, review_data):
     INSERT INTO reviews (product_id, title, content, rating, status, slug, seo_title, seo_description, json_ld)
     VALUES ({product_id}, '{title}', '{content}', {rating}, 'published', '{slug}', '{seo_title}', '{seo_description}', '{json_ld}')
     """
-    return run_db_query(sql)
+    run_db_query(sql)
+
+    # Save to file system for Astro
+    pages_dir = os.path.join(os.path.dirname(__file__), "..", "src", "pages", "reviews")
+    os.makedirs(pages_dir, exist_ok=True)
+    
+    file_path = os.path.join(pages_dir, f"{slug}.md")
+    
+    # Format as Markdown with Frontmatter for Astro
+    md_content = f"""---
+layout: ../../layouts/Layout.astro
+title: "{review_data['title']}"
+description: "{review_data['seo_description']}"
+seo_title: "{review_data['seo_title']}"
+rating: {review_data['rating']}
+json_ld: '{review_data.get('json_ld', '')}'
+---
+
+{review_data['content']}
+"""
+    with open(file_path, "w") as f:
+        f.write(md_content)
+    
+    return True
 
 def generate_comparison(product_data1, product_data2, template_type="comparison"):
     info1 = product_data1["info"]

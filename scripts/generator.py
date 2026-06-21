@@ -99,7 +99,7 @@ def generate_review(product_data, template_type="review"):
     
     try:
         response = client.chat.completions.create(
-            model="gpt-4o", # Using a strong model for quality content
+            model="gpt-4o-mini", # Using a strong model for quality content
             messages=[
                 {"role": "system", "content": "You are a professional SEO reviewer."},
                 {"role": "user", "content": prompt}
@@ -137,14 +137,20 @@ def save_review(product_id, review_data):
     
     file_path = os.path.join(pages_dir, f"{slug}.md")
     
-    # Format as Markdown with Frontmatter for Astro
+    # Escape quotes and format as Markdown with Frontmatter for Astro
+    clean_title = review_data['title'].replace('"', '\\"')
+    clean_description = review_data['seo_description'].replace('"', '\\"')
+    clean_seo_title = review_data['seo_title'].replace('"', '\\"')
+    json_ld_indented = "\n".join(["  " + line for line in review_data.get('json_ld', '').split("\n")])
+    
     md_content = f"""---
 layout: ../../layouts/Layout.astro
-title: "{review_data['title']}"
-description: "{review_data['seo_description']}"
-seo_title: "{review_data['seo_title']}"
+title: "{clean_title}"
+description: "{clean_description}"
+seo_title: "{clean_seo_title}"
 rating: {review_data['rating']}
-json_ld: '{review_data.get('json_ld', '')}'
+json_ld: |
+{json_ld_indented}
 ---
 
 {review_data['content']}
@@ -199,7 +205,7 @@ def generate_comparison(product_data1, product_data2, template_type="comparison"
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a professional SEO reviewer."},
                 {"role": "user", "content": prompt}

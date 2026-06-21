@@ -9,12 +9,13 @@ const { productName = "this product" } = Astro.props;
 const fiverrLink = import.meta.env.FIVERR_AFFILIATE_URL || "https://go.fiverr.com/visit/?bta=618c1ae9&brand=fiverrcpa";
 ---
 
-<div class="my-12 p-8 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-2xl shadow-sm overflow-hidden relative">
-    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="my-12 p-8 bg-gradient-to-br from-emerald-950/30 via-[#0d1527]/50 to-[#030712]/50 border border-emerald-500/15 rounded-3xl shadow-xl overflow-hidden relative group">
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
         <div class="flex-1">
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Need professional help?</h3>
-            <p class="text-slate-600 text-base">
-                Need help setting up <strong>{productName}</strong>, designing your assets, or writing your copy? 
+            <h3 class="text-xl font-bold text-emerald-400 mb-2">Need professional help?</h3>
+            <p class="text-slate-300 text-base leading-relaxed">
+                Need help setting up <strong>{productName}</strong>, designing custom assets, or writing professional copy? 
                 Hire a top-rated freelance expert on Fiverr to get it done right!
             </p>
         </div>
@@ -23,21 +24,12 @@ const fiverrLink = import.meta.env.FIVERR_AFFILIATE_URL || "https://go.fiverr.co
                 href={fiverrLink}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
-                class="inline-flex items-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-all transform hover:scale-105 shadow-md"
+                class="inline-flex items-center px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl transition-all transform hover:scale-105 shadow-md shadow-emerald-500/10 hover:shadow-emerald-500/20 text-sm tracking-wider uppercase"
             >
-                Hire an Expert on Fiverr
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
+                Hire an Expert
             </a>
         </div>
     </div>
-    <!-- Decorative element -->
-    <div class="absolute -right-4 -bottom-4 text-emerald-200 opacity-20 pointer-events-none">
-        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="16"></line>
-            <line x1="8" y1="12" x2="16" y2="12"></line>
-        </svg>
-    </div>
+    <!-- Subtle glow dot in background -->
+    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-emerald-500/5 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
 </div>

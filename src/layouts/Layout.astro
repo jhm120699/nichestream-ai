@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css';
 import FiverrCTA from '../components/FiverrCTA.astro';
 
 interface Props {
@@ -70,24 +71,25 @@ if (!productName) {
         <meta name="generator" content={Astro.generator} />
         <title>{title} | NicheStream AI</title>
     </head>
-    <body class="bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 min-h-screen flex flex-col relative overflow-x-hidden">
+    <body class="bg-[#070a13] text-slate-100 font-sans selection:bg-emerald-500/20 selection:text-emerald-300 min-h-screen flex flex-col relative overflow-x-hidden">
         <!-- Background decorative elements -->
-        <div class="fixed inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
-        <div class="fixed top-0 left-1/2 -z-10 h-[1000px] w-[1000px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05),transparent_70%)]"></div>
+        <div class="fixed inset-0 -z-10 h-full w-full bg-[radial-gradient(rgba(59,130,246,0.08)_1px,transparent_1px)] [background-size:20px_20px] opacity-70"></div>
+        <div class="fixed top-0 left-1/4 -z-10 h-[600px] w-[600px] bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.07),transparent_70%)] blur-2xl"></div>
+        <div class="fixed bottom-0 right-1/4 -z-10 h-[600px] w-[600px] bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.04),transparent_70%)] blur-2xl"></div>
 
-        <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/50">
+        <nav class="sticky top-0 z-50 bg-[#070a13]/80 backdrop-blur-md border-b border-slate-800/60">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16">
+                <div class="flex justify-between h-20">
                     <div class="flex">
                         <a href="/" class="flex-shrink-0 flex items-center group">
-                            <span class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 transition-all group-hover:opacity-80">
+                            <span class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-500 transition-all group-hover:opacity-80">
                                 NicheStream AI
                             </span>
                         </a>
                     </div>
                     <div class="hidden sm:flex sm:items-center sm:space-x-8">
-                        <a href="/reviews" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Reviews</a>
-                        <a href="/comparisons" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Comparisons</a>
+                        <a href="/reviews" class="text-slate-300 hover:text-emerald-400 font-medium transition-colors">Reviews</a>
+                        <a href="/comparisons" class="text-slate-300 hover:text-emerald-400 font-medium transition-colors">Comparisons</a>
                     </div>
                 </div>
             </div>
@@ -96,14 +98,14 @@ if (!productName) {
         <main class="flex-grow">
             {isReviewPage ? (
                 <div class="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-                    <article class="bg-white/70 backdrop-blur-sm shadow-xl shadow-slate-200/50 my-8 rounded-3xl border border-white p-8 md:p-12 relative overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-br from-blue-50/20 to-transparent pointer-events-none"></div>
-                        <div class="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-700 relative z-10">
+                    <article class="bg-[#0d1527]/60 backdrop-blur-md shadow-2xl shadow-slate-950/40 my-8 rounded-3xl border border-slate-800/80 p-8 md:p-12 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none"></div>
+                        <div class="prose prose-invert prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-100 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 relative z-10">
                             <slot />
                         </div>
                         
                         <!-- Fiverr CTA Section -->
-                        <div class="mt-20 border-t border-slate-100 pt-12 relative z-10">
+                        <div class="mt-20 border-t border-slate-800/80 pt-12 relative z-10">
                             <FiverrCTA productName={productName} />
                         </div>
                     </article>
@@ -113,8 +115,8 @@ if (!productName) {
             )}
         </main>
 
-        <footer class="bg-slate-950 text-slate-400 py-16 mt-20 relative overflow-hidden">
-            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
+        <footer class="bg-[#030712] text-slate-400 py-16 mt-20 relative overflow-hidden border-t border-slate-900">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div>
@@ -153,20 +155,10 @@ if (!productName) {
         width: 10px;
     }
     ::-webkit-scrollbar-track {
-        background-color: #f8fafc;
+        background-color: #070a13;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #e2e8f0;
+        background-color: #1e293b;
         border-radius: 9999px;
-        border: 2px solid #f8fafc;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background-color: #cbd5e1;
-    }
-
-    /* Selection styling */
-    ::selection {
-        background: rgba(59, 130, 246, 0.1);
-        color: #2563eb;
     }
 </style>

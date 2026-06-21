@@ -144,14 +144,15 @@ def save_review(product_id, review_data):
     json_ld_indented = "\n".join(["  " + line for line in review_data.get('json_ld', '').split("\n")])
     
     md_content = f"""---
-layout: ../../layouts/Layout.astro
-title: "{clean_title}"
-description: "{clean_description}"
-seo_title: "{clean_seo_title}"
-rating: {review_data['rating']}
-json_ld: |
-{json_ld_indented}
----
+    layout: ../../layouts/Layout.astro
+    title: "{clean_title}"
+    description: "{clean_description}"
+    seo_title: "{clean_seo_title}"
+    productName: "{name}"
+    rating: {review_data['rating']}
+    json_ld: |
+    {json_ld_indented}
+    ---
 
 {review_data['content']}
 """

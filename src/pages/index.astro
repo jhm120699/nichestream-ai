@@ -2,44 +2,109 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Home">
-	<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-		<h1 class="text-5xl font-extrabold text-slate-900 tracking-tight mb-8">
-			Programmatic AI Reviews for <span class="text-blue-600">Passive Income</span>
-		</h1>
-		<p class="text-xl text-slate-600 max-w-3xl mx-auto mb-12">
-			Discover the best software and products, analyzed by AI to help you make informed decisions instantly.
-		</p>
-		<div class="flex justify-center gap-4">
-			<a href="/reviews" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-				Browse Reviews
-			</a>
-			<a href="/comparisons" class="bg-white text-slate-900 border border-slate-200 px-8 py-3 rounded-lg font-semibold hover:bg-slate-50 transition-colors">
-				View Comparisons
-			</a>
-		</div>
-	</section>
+<Layout title="Premium Programmatic AI Reviews">
+    <!-- Hero Section -->
+    <section class="relative pt-20 pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-8 animate-fade-in">
+                    <span class="flex h-2 w-2 rounded-full bg-blue-600 mr-2"></span>
+                    <span class="text-sm font-semibold text-blue-700 uppercase tracking-wider">The Future of Product Discovery</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-950 tracking-tight mb-8 leading-[1.1]">
+                    Analyze Smarter. <br/>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500">Decide Faster.</span>
+                </h1>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto mb-12 leading-relaxed">
+                    NicheStream AI leverages state-of-the-art LLMs to provide deep-dive software analysis, helping you find premium tools without the manual research.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="/reviews" class="group relative px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(30,41,59,0.3)] overflow-hidden">
+                        <span class="relative z-10">Explore Reviews</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </a>
+                    <a href="/comparisons" class="px-8 py-4 bg-white/50 backdrop-blur-sm text-slate-900 border border-slate-200/60 rounded-2xl font-bold hover:bg-white hover:border-slate-300 transition-all hover:shadow-sm">
+                        Side-by-Side Comparisons
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative radial glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+    </section>
 
-	<section class="bg-white py-24">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<h2 class="text-3xl font-bold text-slate-900 mb-12 text-center">How It Works</h2>
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-				<div class="p-8 rounded-2xl bg-slate-50 border border-slate-100">
-					<div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold text-xl mb-6">1</div>
-					<h3 class="text-xl font-bold mb-4">Smart Scraping</h3>
-					<p class="text-slate-600">We automatically track trending products and software across multiple niche categories.</p>
-				</div>
-				<div class="p-8 rounded-2xl bg-slate-50 border border-slate-100">
-					<div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold text-xl mb-6">2</div>
-					<h3 class="text-xl font-bold mb-4">AI Analysis</h3>
-					<p class="text-slate-600">Our AI analyzes features, pros, and cons to generate highly detailed and honest reviews.</p>
-				</div>
-				<div class="p-8 rounded-2xl bg-slate-50 border border-slate-100">
-					<div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold text-xl mb-6">3</div>
-					<h3 class="text-xl font-bold mb-4">SEO Optimized</h3>
-					<p class="text-slate-600">Every page is built for speed and search engines, ensuring maximum visibility and passive income.</p>
-				</div>
-			</div>
-		</div>
-	</section>
+    <!-- How It Works Section -->
+    <section class="py-32 relative bg-slate-900/5 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-950 mb-4 tracking-tight">Built for Precision</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Step 1 -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-[2rem] blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
+                    <div class="relative p-10 rounded-[2rem] bg-white border border-slate-200/50 shadow-sm transition-all hover:-translate-y-1">
+                        <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center font-black text-2xl mb-8 group-hover:scale-110 transition-transform">1</div>
+                        <h3 class="text-2xl font-bold text-slate-950 mb-4">Autonomous Discovery</h3>
+                        <p class="text-slate-600 leading-relaxed">Our pipeline scans thousands of data points daily to identify emerging niche winners before they go mainstream.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-indigo-600 to-emerald-600 rounded-[2rem] blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
+                    <div class="relative p-10 rounded-[2rem] bg-white border border-slate-200/50 shadow-sm transition-all hover:-translate-y-1">
+                        <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center font-black text-2xl mb-8 group-hover:scale-110 transition-transform">2</div>
+                        <h3 class="text-2xl font-bold text-slate-950 mb-4">Intelligent Analysis</h3>
+                        <p class="text-slate-600 leading-relaxed">Sophisticated AI agents break down feature sets, pricing models, and real user sentiment to give you the truth.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-blue-600 rounded-[2rem] blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
+                    <div class="relative p-10 rounded-[2rem] bg-white border border-slate-200/50 shadow-sm transition-all hover:-translate-y-1">
+                        <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center font-black text-2xl mb-8 group-hover:scale-110 transition-transform">3</div>
+                        <h3 class="text-2xl font-bold text-slate-950 mb-4">Instant Insight</h3>
+                        <p class="text-slate-600 leading-relaxed">Get perfectly formatted, SEO-rich reports designed for quick consumption and maximum decision confidence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats/Trust Section -->
+    <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-100">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="text-4xl font-black text-slate-950 mb-1 tracking-tighter">1,000+</div>
+                <div class="text-sm font-bold text-slate-500 uppercase tracking-widest">Reviews Analyzed</div>
+            </div>
+            <div>
+                <div class="text-4xl font-black text-slate-950 mb-1 tracking-tighter">24/7</div>
+                <div class="text-sm font-bold text-slate-500 uppercase tracking-widest">AI Monitoring</div>
+            </div>
+            <div>
+                <div class="text-4xl font-black text-slate-950 mb-1 tracking-tighter">100%</div>
+                <div class="text-sm font-bold text-slate-500 uppercase tracking-widest">Objective Data</div>
+            </div>
+            <div>
+                <div class="text-4xl font-black text-slate-950 mb-1 tracking-tighter">Instant</div>
+                <div class="text-sm font-bold text-slate-500 uppercase tracking-widest">Page Speed</div>
+            </div>
+        </div>
+    </section>
 </Layout>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.8s ease-out forwards;
+    }
+</style>

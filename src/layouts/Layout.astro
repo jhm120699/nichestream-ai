@@ -68,52 +68,67 @@ if (!productName) {
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
-        <title>{title}</title>
+        <title>{title} | NicheStream AI</title>
     </head>
-    <body class="bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
-        <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <body class="bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 min-h-screen flex flex-col relative overflow-x-hidden">
+        <!-- Background decorative elements -->
+        <div class="fixed inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
+        <div class="fixed top-0 left-1/2 -z-10 h-[1000px] w-[1000px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05),transparent_70%)]"></div>
+
+        <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex">
-                        <a href="/" class="flex-shrink-0 flex items-center">
-                            <span class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                        <a href="/" class="flex-shrink-0 flex items-center group">
+                            <span class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 transition-all group-hover:opacity-80">
                                 NicheStream AI
                             </span>
                         </a>
+                    </div>
+                    <div class="hidden sm:flex sm:items-center sm:space-x-8">
+                        <a href="/reviews" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Reviews</a>
+                        <a href="/comparisons" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Comparisons</a>
                     </div>
                 </div>
             </div>
         </nav>
 
-        <main class="min-h-screen">
+        <main class="flex-grow">
             {isReviewPage ? (
-                <article class="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8 bg-white shadow-sm my-8 rounded-xl border border-slate-200">
-                    <div class="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-700">
-                        <slot />
-                    </div>
-                    
-                    <!-- Fiverr CTA Section -->
-                    <div class="mt-16 border-t border-slate-100 pt-8">
-                        <FiverrCTA productName={productName} />
-                    </div>
-                </article>
+                <div class="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+                    <article class="bg-white/70 backdrop-blur-sm shadow-xl shadow-slate-200/50 my-8 rounded-3xl border border-white p-8 md:p-12 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-50/20 to-transparent pointer-events-none"></div>
+                        <div class="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-700 relative z-10">
+                            <slot />
+                        </div>
+                        
+                        <!-- Fiverr CTA Section -->
+                        <div class="mt-20 border-t border-slate-100 pt-12 relative z-10">
+                            <FiverrCTA productName={productName} />
+                        </div>
+                    </article>
+                </div>
             ) : (
                 <slot />
             )}
         </main>
 
-        <footer class="bg-slate-900 text-slate-300 py-12 mt-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <footer class="bg-slate-950 text-slate-400 py-16 mt-20 relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div>
-                        <span class="text-xl font-bold text-white mb-4 block">NicheStream AI</span>
-                        <p class="max-w-md text-slate-400">
-                            Programmatic AI reviews for the modern web. Helping you find the best tools for your niche.
+                        <span class="text-2xl font-bold text-white mb-6 block">NicheStream AI</span>
+                        <p class="max-w-md text-slate-400 leading-relaxed">
+                            Premium programmatic AI reviews for the modern niche investigator. Helping you discover high-value opportunities with data-driven clarity.
                         </p>
                     </div>
-                    <div class="md:text-right">
-                        <p>&copy; {new Date().getFullYear()} NicheStream AI. All rights reserved.</p>
-                        <p class="mt-2 text-sm text-slate-500">Built with Astro & AI</p>
+                    <div class="md:text-right flex flex-col justify-end">
+                        <div class="flex md:justify-end space-x-6 mb-8 text-sm font-medium">
+                            <a href="/reviews" class="hover:text-white transition-colors">Latest Reviews</a>
+                            <a href="/comparisons" class="hover:text-white transition-colors">Comparisons</a>
+                        </div>
+                        <p class="text-sm">&copy; {new Date().getFullYear()} NicheStream AI. Crafted with precision for 100% passive growth.</p>
                     </div>
                 </div>
             </div>
@@ -122,10 +137,10 @@ if (!productName) {
 </html>
 
 <style is:global>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
     
     :root {
-        --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+        --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     }
 
     html {
@@ -135,16 +150,23 @@ if (!productName) {
 
     /* Simple custom scrollbar */
     ::-webkit-scrollbar {
-        width: 8px;
+        width: 10px;
     }
     ::-webkit-scrollbar-track {
-        background-color: #f1f5f9;
+        background-color: #f8fafc;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #cbd5e1;
+        background-color: #e2e8f0;
         border-radius: 9999px;
+        border: 2px solid #f8fafc;
     }
     ::-webkit-scrollbar-thumb:hover {
-        background-color: #94a3b8;
+        background-color: #cbd5e1;
+    }
+
+    /* Selection styling */
+    ::selection {
+        background: rgba(59, 130, 246, 0.1);
+        color: #2563eb;
     }
 </style>

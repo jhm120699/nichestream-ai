@@ -25,6 +25,7 @@ json_ld: |
       "datePublished": "2023-10-01"
     }
   }
+productName: "Unlock Your Productivity with Out Loud: A Game-Changer in Text-to-Speech"
 ---
 
 # Review of Out Loud

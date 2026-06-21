@@ -25,6 +25,7 @@ json_ld: |
       "availability": "https://schema.org/InStock"
     }
   }
+productName: "NestPanion Review: Simplifying Home Maintenance Today"
 ---
 
 # Review of NestPanion

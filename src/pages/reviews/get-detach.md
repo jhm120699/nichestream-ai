@@ -22,6 +22,7 @@ json_ld: |
       "ratingCount": "1"
     }
   }
+productName: "Stay Focused with Detach: The Ultimate App Blocker for Productivity"
 ---
 
 # Review of Get Detach

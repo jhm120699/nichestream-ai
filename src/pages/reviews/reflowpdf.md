@@ -29,6 +29,7 @@ json_ld: |
       "availability": "https://schema.org/InStock"
     }
   }
+productName: "ReflowPDF: The Ultimate PDF Editing Solution for Professionals"
 ---
 
 # Review of ReflowPDF

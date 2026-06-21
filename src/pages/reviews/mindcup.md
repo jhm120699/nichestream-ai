@@ -17,6 +17,7 @@ json_ld: |
     },
     "brand": "Mindcup"
   }
+productName: "Unlock Your Study Potential with Mindcup: A Comprehensive Review"
 ---
 
 # Review of Mindcup

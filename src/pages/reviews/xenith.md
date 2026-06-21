@@ -30,6 +30,7 @@ json_ld: |
       }
     }
   }
+productName: "Unlock Your Productivity Potential with Xenith: An In-Depth Review"
 ---
 
 # Review of Xenith

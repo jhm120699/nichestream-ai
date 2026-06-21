@@ -1,12 +1,63 @@
 ---
-import '../styles/global.css';
+import FiverrCTA from '../components/FiverrCTA.astro';
 
 interface Props {
     title: string;
     description?: string;
+    productName?: string;
 }
 
-const { title, description = "AI-powered product reviews and comparisons" } = Astro.props;
+const { title, description = "AI-powered product reviews and comparisons", productName: passedProductName } = Astro.props;
+
+// Detect if we are on a review page to show the CTA
+const isReviewPage = Astro.url.pathname.startsWith('/reviews/');
+
+// Dynamic product name extraction for the review page Fiverr CTA
+let productName = passedProductName;
+if (!productName && isReviewPage) {
+    const frontmatter = Astro.props.frontmatter;
+    if (frontmatter) {
+        if (frontmatter.json_ld) {
+            try {
+                const parsed = JSON.parse(frontmatter.json_ld);
+                if (parsed.brand) {
+                    productName = typeof parsed.brand === 'object' ? parsed.brand.name : parsed.brand;
+                } else if (parsed.name) {
+                    productName = parsed.name;
+                }
+            } catch (e) {
+                // Regex fallback for JSON-LD parsing errors
+                const brandMatch = frontmatter.json_ld.match(/"brand"\s*:\s*"([^"]+)"/);
+                const nameMatch = frontmatter.json_ld.match(/"name"\s*:\s*"([^"]+)"/);
+                if (brandMatch && brandMatch[1]) {
+                    productName = brandMatch[1];
+                } else if (nameMatch && nameMatch[1]) {
+                    productName = nameMatch[1];
+                }
+            }
+        }
+    }
+    
+    // Fallback: extract and format from slug if still default or too generic
+    if (!productName || productName === "this product") {
+        const pathParts = Astro.url.pathname.split('/').filter(Boolean);
+        const slug = pathParts[pathParts.length - 1];
+        if (slug) {
+            productName = slug
+                .split('-')
+                .map(word => {
+                    const lower = word.toLowerCase();
+                    if (lower === 'ai') return 'AI';
+                    if (lower === 'pdf') return 'PDF';
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                })
+                .join(' ');
+        }
+    }
+}
+if (!productName) {
+    productName = "this product";
+}
 ---
 
 <!doctype html>
@@ -17,35 +68,83 @@ const { title, description = "AI-powered product reviews and comparisons" } = As
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
-        <meta name="impact-site-verification" value="618c1ae9-39af-4552-bb3f-34fb3406dc3b" />
-        <meta name="impact-site-verification" content="618c1ae9-39af-4552-bb3f-34fb3406dc3b" />
-        <title>{title} | NicheStream AI</title>
+        <title>{title}</title>
     </head>
-    <body class="bg-slate-50 text-slate-900 antialiased">
-        <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
-            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">NicheStream AI</span>
+    <body class="bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
+        <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <a href="/" class="flex-shrink-0 flex items-center">
+                            <span class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                                NicheStream AI
+                            </span>
+                        </a>
+                    </div>
                 </div>
-                <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-                    <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-                    <a href="/reviews" class="hover:text-blue-600 transition-colors">Reviews</a>
-                    <a href="/comparisons" class="hover:text-blue-600 transition-colors">Comparisons</a>
-                </div>
-            </nav>
-        </header>
-        <main>
-            <slot />
+            </div>
+        </nav>
+
+        <main class="min-h-screen">
+            {isReviewPage ? (
+                <article class="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8 bg-white shadow-sm my-8 rounded-xl border border-slate-200">
+                    <div class="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-700">
+                        <slot />
+                    </div>
+                    
+                    <!-- Fiverr CTA Section -->
+                    <div class="mt-16 border-t border-slate-100 pt-8">
+                        <FiverrCTA productName={productName} />
+                    </div>
+                </article>
+            ) : (
+                <slot />
+            )}
         </main>
-        <footer class="bg-white border-t border-slate-200 mt-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <p class="text-center text-slate-500 text-sm">
-                    &copy; {new Date().getFullYear()} NicheStream AI. All rights reserved.
-                </p>
-                <p class="text-center text-slate-300 text-xs mt-2 opacity-50">
-                    Impact-Site-Verification: 618c1ae9-39af-4552-bb3f-34fb3406dc3b
-                </p>
+
+        <footer class="bg-slate-900 text-slate-300 py-12 mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <span class="text-xl font-bold text-white mb-4 block">NicheStream AI</span>
+                        <p class="max-w-md text-slate-400">
+                            Programmatic AI reviews for the modern web. Helping you find the best tools for your niche.
+                        </p>
+                    </div>
+                    <div class="md:text-right">
+                        <p>&copy; {new Date().getFullYear()} NicheStream AI. All rights reserved.</p>
+                        <p class="mt-2 text-sm text-slate-500">Built with Astro & AI</p>
+                    </div>
+                </div>
             </div>
         </footer>
     </body>
 </html>
+
+<style is:global>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    
+    :root {
+        --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html {
+        font-family: var(--font-sans);
+        scroll-behavior: smooth;
+    }
+
+    /* Simple custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #94a3b8;
+    }
+</style>

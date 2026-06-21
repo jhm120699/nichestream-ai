@@ -17,6 +17,7 @@ json_ld: |
       "reviewCount": "1"
     }
   }
+productName: "Discover the Power of Organization with SearchSpot AI"
 ---
 
 # Review of SearchSpot AI

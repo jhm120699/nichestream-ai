@@ -28,6 +28,7 @@ json_ld: |
       "availability": "http://schema.org/InStock"
     }
   }
+productName: "NailIT Review: The Ultimate AI Meeting Assistant"
 ---
 
 # Review of NailIT

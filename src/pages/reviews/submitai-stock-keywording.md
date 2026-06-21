@@ -6,6 +6,7 @@ seo_title: "SubmitAi: AI Keywording for Stock Photographers"
 rating: 4.2
 json_ld: |
   { "@context": "http://schema.org", "@type": "Product", "name": "SubmitAi", "description": "SubmitAi helps stock photographers save time by automating keyword generation using AI.", "brand": { "@type": "Thing", "name": "SubmitAi" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "10" } }
+productName: "Transform Your Stock Photography with SubmitAi: The Ultimate AI Keywording Tool"
 ---
 
 # Review of SubmitAi

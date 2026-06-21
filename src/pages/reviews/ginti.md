@@ -6,6 +6,7 @@ seo_title: "Ginti Expense Tracker Review - Simplifying Finances"
 rating: 4.5
 json_ld: |
   {"@context":"https://schema.org","@type":"Product","name":"Ginti","description":"Ginti is an innovative expense tracker that reads bank alerts without needing logins, providing a user-friendly way to manage finances.","brand":"Ginti","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.5","bestRating":"5","worstRating":"1","ratingCount":"1"}}
+productName: "Ginti Review: The Revolution in Expense Tracking"
 ---
 
 # Review of Ginti

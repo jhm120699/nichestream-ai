@@ -24,6 +24,7 @@ json_ld: |
       "availability": "https://schema.org/InStock"
     }
   }
+productName: "Unlock Your Building Potential with Corroso: A Comprehensive Review"
 ---
 
 # Review of Corroso

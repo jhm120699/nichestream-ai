@@ -6,6 +6,7 @@ seo_title: "AI Cash Lab Tools Review: Streamline Your Workflow"
 rating: 4.2
 json_ld: |
   { "@context": "https://schema.org", "@type": "Product", "name": "AI Cash Lab Tools", "description": "A suite of free, browser-based tools for enhancing productivity in digital businesses.", "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "bestRating": "5", "ratingCount": "100" }, "offers": { "@type": "Offer", "url": "#", "priceCurrency": "USD", "price": "0.00" } }
+productName: "AI Cash Lab Tools"
 ---
 
 # Review of AI Cash Lab Tools

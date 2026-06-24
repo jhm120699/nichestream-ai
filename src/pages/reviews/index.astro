@@ -7,7 +7,7 @@ const sortedReviews = reviews.sort((a: any, b: any) => b.frontmatter.rating - a.
 ---
 
 <Layout title="Product Intelligence Reports">
-	<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
         <!-- Background decorative glows -->
         <div class="absolute top-0 right-0 -z-10 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px] opacity-70"></div>
         <div class="absolute bottom-0 left-0 -z-10 w-80 h-80 bg-emerald-500/5 rounded-full blur-[100px] opacity-70"></div>
@@ -19,9 +19,9 @@ const sortedReviews = reviews.sort((a: any, b: any) => b.frontmatter.rating - a.
             </p>
         </header>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-			{sortedReviews.map((review: any) => (
-				<a href={review.url} class="group relative block rounded-3xl transition-all duration-500 hover:-translate-y-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {sortedReviews.map((review: any) => (
+                <a href={review.url} class="group relative block rounded-3xl transition-all duration-500 hover:-translate-y-2">
                     <!-- Subtle Card Glow -->
                     <div class="absolute -inset-px bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500"></div>
                     
@@ -31,7 +31,7 @@ const sortedReviews = reviews.sort((a: any, b: any) => b.frontmatter.rating - a.
 
                         <div class="relative z-10 flex justify-between items-center mb-6">
                             <span class="px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-black text-blue-400 uppercase tracking-widest">Report</span>
-                            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-400">Score: {review.frontmatter.rating} / 10</span>
+                            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-400">Score: {review.frontmatter.rating} / 5</span>
                         </div>
 
                         <div class="relative z-10 flex-grow">
@@ -48,8 +48,8 @@ const sortedReviews = reviews.sort((a: any, b: any) => b.frontmatter.rating - a.
                             <span class="text-slate-500 text-xs font-semibold group-hover:text-slate-300 transition-colors">Read Report</span>
                         </div>
                     </div>
-				</a>
-			))}
-		</div>
-	</section>
+                </a>
+            ))}
+        </div>
+    </section>
 </Layout>

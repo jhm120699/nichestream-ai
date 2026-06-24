@@ -1,64 +1,15 @@
 ---
 import '../styles/global.css';
-import FiverrCTA from '../components/FiverrCTA.astro';
 
 interface Props {
     title: string;
     description?: string;
-    productName?: string;
 }
 
-const { title, description = "AI-powered product reviews and comparisons", productName: passedProductName } = Astro.props;
+const { title, description = "AI-powered product reviews and comparisons" } = Astro.props;
 
 // Detect if we are on a review page to show the CTA
 const isReviewPage = Astro.url.pathname.startsWith('/reviews/');
-
-// Dynamic product name extraction for the review page Fiverr CTA
-let productName = passedProductName;
-if (!productName && isReviewPage) {
-    const frontmatter = Astro.props.frontmatter;
-    if (frontmatter) {
-        if (frontmatter.json_ld) {
-            try {
-                const parsed = JSON.parse(frontmatter.json_ld);
-                if (parsed.brand) {
-                    productName = typeof parsed.brand === 'object' ? parsed.brand.name : parsed.brand;
-                } else if (parsed.name) {
-                    productName = parsed.name;
-                }
-            } catch (e) {
-                // Regex fallback for JSON-LD parsing errors
-                const brandMatch = frontmatter.json_ld.match(/"brand"\s*:\s*"([^"]+)"/);
-                const nameMatch = frontmatter.json_ld.match(/"name"\s*:\s*"([^"]+)"/);
-                if (brandMatch && brandMatch[1]) {
-                    productName = brandMatch[1];
-                } else if (nameMatch && nameMatch[1]) {
-                    productName = nameMatch[1];
-                }
-            }
-        }
-    }
-    
-    // Fallback: extract and format from slug if still default or too generic
-    if (!productName || productName === "this product") {
-        const pathParts = Astro.url.pathname.split('/').filter(Boolean);
-        const slug = pathParts[pathParts.length - 1];
-        if (slug) {
-            productName = slug
-                .split('-')
-                .map(word => {
-                    const lower = word.toLowerCase();
-                    if (lower === 'ai') return 'AI';
-                    if (lower === 'pdf') return 'PDF';
-                    return word.charAt(0).toUpperCase() + word.slice(1);
-                })
-                .join(' ');
-        }
-    }
-}
-if (!productName) {
-    productName = "this product";
-}
 ---
 
 <!doctype html>
@@ -89,8 +40,6 @@ if (!productName) {
                         </a>
                     </div>
                     <div class="hidden sm:flex sm:items-center sm:space-x-8">
-                        <a href="/reviews" class="text-slate-300 hover:text-emerald-400 font-medium transition-colors">Reviews</a>
-                        <a href="/comparisons" class="text-slate-300 hover:text-emerald-400 font-medium transition-colors">Comparisons</a>
                     </div>
                 </div>
             </div>
@@ -103,11 +52,6 @@ if (!productName) {
                         <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none"></div>
                         <div class="prose prose-invert prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-100 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 relative z-10">
                             <slot />
-                        </div>
-                        
-                        <!-- Fiverr CTA Section -->
-                        <div class="mt-20 border-t border-slate-800/80 pt-12 relative z-10">
-                            <FiverrCTA productName={productName} />
                         </div>
                     </article>
                 </div>

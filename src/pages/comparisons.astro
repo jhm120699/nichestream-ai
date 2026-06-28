@@ -1,33 +1,159 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const reviews = Object.values(import.meta.glob('./reviews/*.md', { eager: true }));
+
+// Categorize reviews
+const categories: Record<string, any[]> = {
+    "Productivity & Collaboration": [],
+    "Design & Creative": [],
+    "AI & Automation": [],
+    "Finance & Analytics": [],
+};
+
+const categoryKeywords: Record<string, string[]> = {
+    "Productivity & Collaboration": ["notion", "slack", "miro", "loom", "clickup", "trello", "linear"],
+    "Design & Creative": ["figma", "nails", "design"],
+    "AI & Automation": ["zapier", "ai", "snapp", "searchspot", "xenith", "nailit", "out-loud"],
+    "Finance & Analytics": ["ginti", "ai-cash", "corroso", "klioso", "mindcup"],
+};
+
+for (const review of reviews) {
+    const fm = (review as any).frontmatter;
+    const slug = (review as any).url?.split('/').filter(Boolean).pop()?.toLowerCase() || '';
+    let assigned = false;
+    for (const [cat, keywords] of Object.entries(categoryKeywords)) {
+        if (keywords.some(kw => slug.includes(kw) || (fm.productName || '').toLowerCase().includes(kw))) {
+            categories[cat].push({ ...fm, slug, url: (review as any).url });
+            assigned = true;
+            break;
+        }
+    }
+    if (!assigned && fm.productName) {
+        categories["AI & Automation"].push({ ...fm, slug, url: (review as any).url });
+    }
+}
+
+// Flatten for the "all products" table
+const allReviews = reviews
+    .map((r: any) => ({
+        ...r.frontmatter,
+        slug: r.url?.split('/').filter(Boolean).pop() || '',
+        url: r.url,
+    }))
+    .sort((a, b) => (b.rating || 0) - (a.rating || 0));
 ---
 
-<Layout title="AI Comparative Intelligence">
-	<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center relative">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-[120px] -z-10"></div>
-        
-		<div class="w-24 h-24 bg-gradient-to-br from-emerald-500 to-teal-500 text-slate-950 rounded-3xl flex items-center justify-center mx-auto mb-10 shadow-lg shadow-emerald-500/10 rotate-3 transition-transform hover:rotate-0 duration-500">
-			<!-- Clean math/comparison visual using standard shapes, NO arrows or stars -->
-            <span class="text-3xl font-black">VS</span>
-		</div>
-        
-		<h1 class="text-4xl md:text-5xl font-black text-slate-100 tracking-tight mb-8">
-			Side-by-Side Intelligence
-		</h1>
-		<p class="text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-			Our AI engine is currently processing millions of feature vectors to generate deep-dive, head-to-head comparisons. Check back shortly for automated, data-driven reports.
-		</p>
-        
-		<div class="flex justify-center">
-			<a href="/reviews" class="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 rounded-2xl font-bold transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] overflow-hidden">
-                <span class="relative z-10">Explore In-Depth Reviews</span>
-            </a>
-		</div>
+<Layout title="Side-by-Side Comparisons — NicheStream AI">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
+        <div class="absolute top-0 right-0 -z-10 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px] opacity-70"></div>
+        <div class="absolute bottom-0 left-0 -z-10 w-80 h-80 bg-emerald-500/5 rounded-full blur-[100px] opacity-70"></div>
 
-        <!-- Placeholder visual -->
-        <div class="mt-20 max-w-4xl mx-auto grid grid-cols-2 gap-6 opacity-30 pointer-events-none">
-            <div class="h-40 rounded-3xl border border-slate-800 bg-[#0d1527]/20 backdrop-blur-sm"></div>
-            <div class="h-40 rounded-3xl border border-slate-800 bg-[#0d1527]/20 backdrop-blur-sm"></div>
+        <header class="mb-16 text-center">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-500 text-slate-950 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg shadow-emerald-500/10">
+                <span class="text-2xl font-black">VS</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-100 tracking-tight mb-6">
+                Find the Right Tool
+            </h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                Every product we've reviewed, compared side-by-side. Ratings, categories, and key insights — all in one place.
+            </p>
+        </header>
+
+        <!-- All Products Comparison Table -->
+        <div class="mb-20 bg-[#0d1527]/40 backdrop-blur-md rounded-3xl border border-slate-800/80 overflow-hidden shadow-2xl shadow-slate-950/40">
+            <div class="p-8 border-b border-slate-800/60">
+                <h2 class="text-2xl font-bold text-slate-100">Full Comparison Table</h2>
+                <p class="text-slate-400 text-sm mt-1">Sorted by rating — highest first</p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-slate-800/60 text-sm uppercase tracking-wider text-slate-500">
+                            <th class="px-6 py-4 font-bold">Product</th>
+                            <th class="px-6 py-4 font-bold">Rating</th>
+                            <th class="px-6 py-4 font-bold hidden md:table-cell">Category</th>
+                            <th class="px-6 py-4 font-bold hidden lg:table-cell">Description</th>
+                            <th class="px-6 py-4 font-bold text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allReviews.map((review, i) => (
+                            <tr class="border-b border-slate-800/40 hover:bg-emerald-500/5 transition-colors">
+                                <td class="px-6 py-5">
+                                    <span class="text-slate-100 font-bold">{review.productName || review.title?.replace('Review of ', '')}</span>
+                                </td>
+                                <td class="px-6 py-5">
+                                    <span class={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${
+                                        (review.rating || 0) >= 4.5 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                                        (review.rating || 0) >= 3.5 ? 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20' :
+                                        'bg-slate-500/10 text-slate-400 border border-slate-500/20'
+                                    }`}>
+                                        {review.rating} / 5
+                                    </span>
+                                </td>
+                                <td class="px-6 py-5 text-slate-300 text-sm hidden md:table-cell">
+                                    {Object.entries(categories).find(([, items]) => items.some((i: any) => i.url === review.url))?.[0] || 'General'}
+                                </td>
+                                <td class="px-6 py-5 text-slate-400 text-sm hidden lg:table-cell max-w-xs truncate">
+                                    {review.description || ''}
+                                </td>
+                                <td class="px-6 py-5 text-right">
+                                    <a href={review.url} class="inline-flex items-center px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs uppercase tracking-wider transition-all hover:scale-105">
+                                        Read Review
+                                    </a>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
-	</section>
+
+        <!-- Category Sections -->
+        {Object.entries(categories).map(([categoryName, items]) => {
+            if (items.length === 0) return null;
+            return (
+                <div class="mb-16">
+                    <div class="flex items-center gap-4 mb-8">
+                        <h2 class="text-2xl font-bold text-slate-100">{categoryName}</h2>
+                        <div class="flex-1 h-px bg-gradient-to-r from-emerald-500/30 to-transparent"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {items.map((review: any) => (
+                            <a href={review.url} class="group relative block rounded-2xl transition-all duration-500 hover:-translate-y-1">
+                                <div class="absolute -inset-px bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500"></div>
+                                <div class="relative h-full p-6 rounded-2xl bg-[#0d1527]/50 backdrop-blur-md border border-slate-800/80 group-hover:border-emerald-500/30 transition-all duration-500">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <h3 class="text-lg font-bold text-slate-100 group-hover:text-emerald-400 transition-colors">
+                                            {review.productName || review.title?.replace('Review of ', '')}
+                                        </h3>
+                                        <span class={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                                            (review.rating || 0) >= 4.5 ? 'bg-emerald-500/10 text-emerald-400' :
+                                            (review.rating || 0) >= 3.5 ? 'bg-yellow-500/10 text-yellow-400' :
+                                            'bg-slate-500/10 text-slate-400'
+                                        }`}>
+                                            {review.rating} / 5
+                                        </span>
+                                    </div>
+                                    <p class="text-slate-400 text-sm leading-relaxed line-clamp-2">
+                                        {review.description || ''}
+                                    </p>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            );
+        })}
+
+        <!-- Bottom CTA -->
+        <div class="mt-20 text-center">
+            <p class="text-slate-400 mb-6">Want the full breakdown? Dive into any review for pros, cons, and details.</p>
+            <a href="/reviews" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 rounded-2xl font-bold transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                View All Reviews
+            </a>
+        </div>
+    </section>
 </Layout>
